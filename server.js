@@ -18,6 +18,19 @@ mongoose.connection
 .on('close', () => {console.log('Disconnected from Mongo')})
 .on('error', (error) => {console.log(error)})
 
+/*          MONGOOSE            */
+const MessageSchema = new mongoose.Schema({
+    userName: String,
+    about: String,
+    date: String,
+    time: String,
+    message: String,
+    url: String,
+    startRating: Number
+}, {timestamps: true})
+
+const Message = mongoose.model('Message', MessageSchema)
+
 /*          MIDDLEWARE          */
 app.use(cors())
 app.use(morgan('dev'))
@@ -26,6 +39,44 @@ app.use(express.json())
 /*          ROUTES          */
 app.get('/', (req, res) => {
     res.send('Hello World')
+})
+
+// Index route
+app.get('/forum', async (req, res) => {
+    try {
+        res.json(await Message.find({}))
+    } catch(error) {
+        res.status(400).json(error)
+    }
+})
+
+// Create route
+app.post('/forum', async (req, res) => {
+    try {
+        res.json(await Message.create(req.body))
+    } catch(error) {
+        res.status(400).json(error)
+    }
+})
+
+// Update route
+app.put('/forum/:id', async (req, res) => {
+    const id = req.params.id
+    try {
+        res.json(await Message.findByIdAndUpdate(id, req.body, {new: true}))
+    } catch(error) {
+        res.status(400).json(error)
+    }
+})
+
+// Destroy route
+app.delete('/forum/:id', async (req, res) => {
+    const id = req.params.id
+    try {
+        res.json(await Message.findByIdAndRemove(id))
+    } catch(error) {
+        res.status(400).json(error)
+    }
 })
 
 
