@@ -21,6 +21,7 @@ mongoose.connection
 /*          MONGOOSE            */
 const MessageSchema = new mongoose.Schema({
     userName: String,
+    image: String,
     about: String,
     date: String,
     time: String,
