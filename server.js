@@ -35,6 +35,8 @@ mongoose.connection
 // Models
 // ////////////////////////////
 // The forum  schema
+
+// // The forum  schema
 // const ForumSchema = new mongoose.Schema(
 //   {
 //     userName: String,
@@ -45,6 +47,7 @@ mongoose.connection
 //     url: String,
 //     startRating: Number
 
+
 //   { timestamps: true }
 // )
 // Creating the forum model
@@ -54,6 +57,19 @@ const MessageSchema = new mongoose.Schema({
   userName: String,
   image: String,
   about: String,
+
+
+//   },
+//   { timestamps: true }
+// )
+// Creating the forum model
+const Messages = mongoose.model('Messages', ForumSchema)
+
+/*          MONGOOSE            */
+const MessageSchema = new mongoose.Schema({
+    userName: String,
+    image: String,
+    about: String,
     date: String,
     time: String,
     message: String,
@@ -63,18 +79,26 @@ const MessageSchema = new mongoose.Schema({
 
 const Message = mongoose.model('Message', MessageSchema)
 
+
 // /*          MIDDLEWARE          */
 // app.use(cors())
 // app.use(morgan('dev'))
 // app.use(express.json())
 // >>>>>>> main
+=======
 
-// ///////////////////////////////
-// Middleware
-// ////////////////////////////////
-app.use(cors()) // Preventing cors errors, opening up access for frontend
-app.use(morgan('dev')) // Logging
-app.use(express.json()) // Parsing json bodies
+
+/*          MIDDLEWARE          */
+app.use(cors())
+app.use(morgan('dev'))
+app.use(express.json())
+
+// // ///////////////////////////////
+// // Middleware
+// // ////////////////////////////////
+// app.use(cors()) // Preventing cors errors, opening up access for frontend
+// app.use(morgan('dev')) // Logging
+// app.use(express.json()) // Parsing json bodies
 
 // //////////////////////////////
 // Routes
@@ -84,7 +108,7 @@ app.get('/', (req, res) => {
   res.send('Hello World!')
 })
 
-// <<<<<<< main
+
 // // Forum index route
 // // Getting request to /forum messages, returning them all as json
 // app.get('/messages', async (req, res) => {
