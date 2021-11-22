@@ -34,6 +34,8 @@ mongoose.connection
 // ////////////////////////////
 // Models
 // ////////////////////////////
+// The forum  schema
+
 // // The forum  schema
 // const ForumSchema = new mongoose.Schema(
 //   {
@@ -46,12 +48,23 @@ mongoose.connection
 //     startRating: Number
 
 
+//   { timestamps: true }
+// )
+// Creating the forum model
+// const Messages = mongoose.model('Messages', ForumSchema)
+/*          MONGOOSE            */
+const MessageSchema = new mongoose.Schema({
+  userName: String,
+  image: String,
+  about: String,
+
+
 //   },
 //   { timestamps: true }
 // )
 // Creating the forum model
 const Messages = mongoose.model('Messages', ForumSchema)
-=======
+
 /*          MONGOOSE            */
 const MessageSchema = new mongoose.Schema({
     userName: String,
@@ -65,6 +78,15 @@ const MessageSchema = new mongoose.Schema({
 }, {timestamps: true})
 
 const Message = mongoose.model('Message', MessageSchema)
+
+
+// /*          MIDDLEWARE          */
+// app.use(cors())
+// app.use(morgan('dev'))
+// app.use(express.json())
+// >>>>>>> main
+=======
+
 
 /*          MIDDLEWARE          */
 app.use(cors())
