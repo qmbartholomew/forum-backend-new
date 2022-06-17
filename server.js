@@ -1,44 +1,22 @@
-// ///////////////////////////
-// Dependencies
-// ///////////////////////////
-
-// Getting .env variables
+/*          DEPENDENCIES            */
 require('dotenv').config()
-// Pulling PORT from .env, giving it a default of 3002 (object destructuring)
-const { PORT = 3002, DATABASE_URL } = process.env
-// Importing express
+const {PORT = 3002, DATABASE_URL} = process.env
 const express = require('express')
-// Creating  the application object
 const app = express()
-// Importing mongoose
 const mongoose = require('mongoose')
-// Importing middleware
 const cors = require('cors')
 const morgan = require('morgan')
 
-// ///////////////////////////////
-// Database Connection
-// //////////////////////////////
-// Establishing connection
+/*          DATABASE CONNECTION         */
 mongoose.connect(DATABASE_URL, {
-  useUnifiedTopology: true,
-  useNewUrlParser: true
+    useUnifiedTopology: true,
+    useNewUrlParser: true
 })
 
-// Connection Events
 mongoose.connection
-  .on('open', () => console.log('You are connected to Mongo'))
-  .on('close', () => console.log('You are disconnected from Mongo'))
-  .on('error', error => console.log(error))
-
-/*          MONGOOSE            */
-const MessageSchema = new mongoose.Schema({
-  userName: String,
-  image: String,
-  about: String,
-
-// Creating the forum model
-const Messages = mongoose.model('Messages', ForumSchema)
+.on('open', () => {console.log('Connected to Mongo')})
+.on('close', () => {console.log('Disconnected from Mongo')})
+.on('error', (error) => {console.log(error)})
 
 /*          MONGOOSE            */
 const MessageSchema = new mongoose.Schema({
@@ -54,18 +32,14 @@ const MessageSchema = new mongoose.Schema({
 
 const Message = mongoose.model('Message', MessageSchema)
 
-
 /*          MIDDLEWARE          */
 app.use(cors())
 app.use(morgan('dev'))
 app.use(express.json())
 
-// //////////////////////////////
-// Routes
-// //////////////////////////////
-// Setting up a test route
+/*          ROUTES          */
 app.get('/', (req, res) => {
-  res.send('Hello World!')
+    res.send('Hello World')
 })
 
 // Index route
@@ -107,9 +81,5 @@ app.delete('/forum/:id', async (req, res) => {
 })
 
 
-// ///////////////////////////////
-// Server Listener
-// ///////////////////////////////
-app.listen(PORT, () => {
-  console.log(`listening on PORT ${PORT}`)
-})
+/*          SERVER LISTENER         */
+app.listen(PORT, () => {console.log(`Listening on port ${PORT}`)})
